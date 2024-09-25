@@ -1,35 +1,24 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        # Dictionary to hold matching pairs
-        matching_brackets = {')': '(', '}': '{', ']': '['}
+import unittest
+from program1 import Solution
 
-        # Stack to store opening brackets
-        stack = []
+class TestSolution(unittest.TestCase):
+    def setUp(self):
+        self.solution = Solution()
 
-        for char in s:
-            # If it's a closing bracket
-            if char in matching_brackets:
-                # Pop from stack if there's a matching opening bracket
-                top_element = stack.pop() if stack else '#'
-                if matching_brackets[char] != top_element:
-                    return False
-            else:
-                # Push opening bracket to the stack
-                stack.append(char)
+    def test_valid_parentheses(self):
+        self.assertTrue(self.solution.isValid("()"))
+        self.assertTrue(self.solution.isValid("()[]{}"))
+        self.assertTrue(self.solution.isValid("{[()]}"))
 
-        # Return True if the stack is empty, else False
-        return not stack
+    def test_invalid_parentheses(self):
+        self.assertFalse(self.solution.isValid("(]"))
+        self.assertFalse(self.solution.isValid("([)]"))
 
+    def test_empty_string(self):
+        self.assertTrue(self.solution.isValid(""))
 
-if __name__ == "__main__":
-    # Taking user input
-    user_input = input()
+    def test_mixed_parentheses(self):
+        self.assertFalse(self.solution.isValid("(){"))
 
-    # Creating an instance of Solution class
-    solution = Solution()
-
-    # Checking if the input string is valid and printing the result
-    if solution.isValid(user_input):
-        print("True")
-    else:
-        print("False")
+if __name__ == '__main__':
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
