@@ -1,42 +1,31 @@
-class Solution:
-    def romanToInt(self, s: str) -> int:
-        # Dictionary to hold the values of Roman numerals
-        roman_to_int = {
-            'I': 1,
-            'V': 5,
-            'X': 10,
-            'L': 50,
-            'C': 100,
-            'D': 500,
-            'M': 1000
-        }
-        
-        total = 0
-        prev_value = 0
+import unittest
+from program2 import Solution
 
-        # Iterate over the Roman numeral string from right to left
-        for char in reversed(s):
-            current_value = roman_to_int[char]
-            
-            # If the current value is less than the previous value, we subtract it
-            if current_value < prev_value:
-                total -= current_value
-            else:
-                total += current_value
-            
-            # Update the previous value for the next iteration
-            prev_value = current_value
+class TestRomanToInt(unittest.TestCase):
+    def setUp(self):
+        self.solution = Solution()
 
-        return total
+    def test_example1(self):
+        self.assertEqual(self.solution.romanToInt("III"), 3)
 
+    def test_example2(self):
+        self.assertEqual(self.solution.romanToInt("LVIII"), 58)
 
-if __name__ == "__main__":
-    # Taking user input for the Roman numeral
-    user_input = input()
+    def test_example3(self):
+        self.assertEqual(self.solution.romanToInt("MCMXCIV"), 1994)
 
-    # Creating an instance of Solution class
-    solution = Solution()
+    def test_single_roman_digit(self):
+        self.assertEqual(self.solution.romanToInt("X"), 10)
 
-    # Converting Roman numeral to integer and printing the result
-    result = solution.romanToInt(user_input)
-    print( result)
+    def test_subtraction_rule(self):
+        self.assertEqual(self.solution.romanToInt("IV"), 4)
+        self.assertEqual(self.solution.romanToInt("IX"), 9)
+
+    def test_large_number(self):
+        self.assertEqual(self.solution.romanToInt("MMMCMXCIX"), 3999)
+
+    def test_empty_string(self):
+        self.assertEqual(self.solution.romanToInt(""), 0)
+
+if __name__ == '__main__':
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
